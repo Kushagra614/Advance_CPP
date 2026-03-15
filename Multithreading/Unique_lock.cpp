@@ -32,12 +32,25 @@ SYNTAX : unique_lock<mutex>lock(m);
 #include<chrono>
 using namespace std;
 
+mutex m;
 timed_mutex mtx;
 int buffer = 0;
 
 void task(const char* k)
 {
-    unique_lock<timed_mutex>lock(mtx);
+    // unique_lock<mutex>lock(m);
+    m.lock();
+        for(int i = 0; i < 10; i++)
+    {
+        buffer++;
+        cout<<"Thread ID: "<<k<<"-> "<<buffer<<endl;
+    }
+    m.unlock();
+}
+
+void fun(const char* k)
+{
+    unique_lock<timed_mutex>lock(mtx, defer_lock);
     if(mtx.try_lock_for(chrono::seconds(1)))
     {
         for(int i = 0; i < 10; i++)
@@ -45,6 +58,9 @@ void task(const char* k)
         buffer++;
         cout<<"Thread ID: "<<k<<"-> "<<buffer<<endl;
     }
+    }
+    else{
+        cout<<"Thread ID: "<<k<<" could not lock the mutex\n";
     }
     
 }

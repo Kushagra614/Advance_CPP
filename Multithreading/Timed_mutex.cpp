@@ -19,3 +19,41 @@
 // Try again later
 // Perform some other action
 
+#include<iostream>
+#include<thread>
+#include<mutex>
+#include<chrono>
+using namespace std;
+
+int amt = 0;
+timed_mutex mtx;
+
+void inc(int i)
+{
+    if(mtx.try_lock_for(chrono::seconds(3)))
+    {
+        amt++;
+        this_thread::sleep_for(chrono::seconds(2));
+        cout<<"Thread "<< i <<" Entered\n";
+        mtx.unlock();
+        cout<<"Thread "<< i <<" Left\n";
+    }
+    else
+    {
+        cout<<"Thread "<< i <<" Couldn't Enter\n";
+    }
+}
+
+int main(){
+
+    thread t1(inc,1);
+    thread t2(inc,2);
+
+    t1.join();
+    t2.join();
+
+    cout<<amt<<endl;
+
+   return 0;
+}
+
