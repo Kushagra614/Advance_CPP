@@ -6,7 +6,7 @@ Return true if duplicates found in a array, else false
 Now in order to check whether the an element is being repeated in the array or not, I will sort the array. This will brign all the respective deuplicates together. Now I will move through the array and check that whether the curr element is equal to the element prev to it or not. By doing this I will get to know that if the array contains duplicates or not.
 NOTE: I started my iteration from the 2nd element in the array to avoid the iteration overflow (going out of the array).
 
-The T.C of this approach will be -> O(nlogn) => O(n) for the iteration of the array and O(logn) for sorting.
+The T.C of this approach will be -> O(nlogn) => O(n) for the iteration of the array and O(nlogn) for sorting.
 The S.C of this approach will be -> O(1) => As we not using any extra space here.
 
 ### OPT:
