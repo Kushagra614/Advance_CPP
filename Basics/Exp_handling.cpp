@@ -24,7 +24,8 @@ int main(){
 }
 
 /*
-We don’t use `catch` inside the function (`dof`) because the function’s job is only to detect an error and throw an exception, not to decide how to handle it. Instead, the exception is allowed to propagate upward (this is called exception propagation) to the caller (`main`), where better decisions can be made.
+We don’t use `catch` inside the function (`dof`) because the function’s job is only to detect an error and throw an exception, 
+not to decide how to handle it. Instead, the exception is allowed to propagate upward (this is called exception propagation) to the caller (`main`), where better decisions can be made.
 
 Key points:
 
@@ -33,5 +34,19 @@ Key points:
 * This improves flexibility (e.g., logging, retrying, or terminating).
 * Catching inside the function can hide errors from the caller.
 * Follows the principle: “throw where you detect, catch where you can handle.”
+
+*/
+
+/*
+We use `const char*` in the `catch` block because the exception being thrown is a string literal (e.g., `"Division by 0 error!"`), 
+and in C++, string literals are stored in read-only memory and have the type `const char*`.
+
+Key points:
+
+* A string literal like `"error"` has type `const char*`.
+* It is stored in read-only memory, so it cannot be modified.
+* Using `const` ensures we do not accidentally try to modify it.
+* The `catch` type must match the type that was thrown.
+* Writing `char*` instead of `const char*` is unsafe and can lead to undefined behavior.
 
 */
