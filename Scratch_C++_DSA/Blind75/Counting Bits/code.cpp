@@ -14,13 +14,23 @@ int setBits(int n)
 vector<int> countBits(int n)
 {
     // traverse form 0 to n
-    vector<int> res;
+    // vector<int> res;
     // for each i, calculate the no. of set bits
-    for (int i = 0; i <= n; i++)
+    // for (int i = 0; i <= n; i++)
+    // {
+    //     int ans = setBits(i);
+    //     // store them in an ans array
+    //     res.push_back(ans);
+    // }
+
+    //         return res;
+    // }
+
+    vector<int> res(n + 1, 0);
+
+    for (int i = 1; i <= n; i++)
     {
-        int ans = setBits(i);
-        // store them in an ans array
-        res.push_back(ans);
+        res[i] = res[i >> 1] + (i & 1);
     }
 
     return res;
@@ -29,10 +39,10 @@ vector<int> countBits(int n)
 int main()
 {
     int n = 5;
-    vector<int>ans = countBits(n);
-    for(auto &i: ans)
+    vector<int> ans = countBits(n);
+    for (auto &i : ans)
     {
-        cout<<i<<" ";
+        cout << i << " ";
     }
     return 0;
 }
